@@ -18,7 +18,6 @@ export const projects = [
   {
     id: 'redesign-of-teacher-dashboard',
     title: 'Redesign of teacher dashboard',
-    layoutId: 'project-redesign-teacher-dashboard',
     to: '/projects/redesign-of-teacher-dashboard',
     period: '2021 – 2023',
     description: 'Uchi.ru | class collaboration, teacher UX, design system',

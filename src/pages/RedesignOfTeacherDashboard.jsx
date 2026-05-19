@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
 import HoverLink from '../components/HoverLink';
 import { redesignOfTeacherDashboard as content } from '../projects/redesign-of-teacher-dashboard/content';
 
@@ -114,13 +113,7 @@ export default function RedesignOfTeacherDashboard() {
               {' · '}
               {content.role}
             </p>
-            <motion.h1
-              layoutId={content.layoutId}
-              className="case-study-title"
-              transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {content.title}
-            </motion.h1>
+            <h1 className="case-study-title">{content.title}</h1>
           </div>
         </header>
 

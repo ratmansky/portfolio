@@ -2,7 +2,6 @@ const imageBase = '/projects/redesign-of-teacher-dashboard';
 
 export const redesignOfTeacherDashboard = {
   id: 'redesign-of-teacher-dashboard',
-  layoutId: 'project-redesign-teacher-dashboard',
   title: 'Redesign of Teacher Dashboard: How UX Improved Growth ×2',
   listTitle: 'Redesign of teacher dashboard',
   client: 'Uchi.ru',

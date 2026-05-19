@@ -93,10 +93,6 @@ a {
   }
 }
 
-.project-title-shared {
-  display: inline-block;
-}
-
 p {
   margin: 0;
 }
@@ -204,7 +200,7 @@ p {
 }
 
 .portfolio-copy-accent {
-  color: var(--accent);
+  color: var(--text);
 }
 
 .portfolio-projects {
@@ -218,15 +214,12 @@ p {
   width: var(--preview-width);
   height: var(--preview-height);
   background: var(--preview-color, #ffffff);
-  opacity: 0;
-  transform: scaleY(0);
-  transform-origin: bottom center;
+  clip-path: inset(100% 0 0 0);
   pointer-events: none;
   visibility: hidden;
   overflow: hidden;
   transition:
-    opacity 320ms ease,
-    transform 520ms cubic-bezier(0.4, 0, 0.2, 1),
+    clip-path 520ms cubic-bezier(0.4, 0, 0.2, 1),
     background-color 320ms ease,
     visibility 0s linear 520ms;
   z-index: 10;
@@ -254,12 +247,10 @@ p {
 }
 
 .project-preview.is-visible {
-  opacity: 1;
-  transform: scaleY(1);
+  clip-path: inset(0 0 0 0);
   visibility: visible;
   transition:
-    opacity 320ms ease,
-    transform 520ms cubic-bezier(0.4, 0, 0.2, 1),
+    clip-path 520ms cubic-bezier(0.4, 0, 0.2, 1),
     background-color 320ms ease,
     visibility 0s linear 0s;
 }
