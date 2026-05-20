@@ -22,7 +22,7 @@ export const projects = [
     period: '2021 – 2023',
     description: 'Uchi.ru | class collaboration, teacher UX, design system',
     previewColor: '#5b8cff',
-    previewImage: '/projects/redesign-of-teacher-dashboard/07-result-shared-class.png',
+    previewImage: '/assets/projects/redesign-of-teacher-dashboard/07-result-shared-class.png',
     previewImageAlt: 'Uchi.ru teacher dashboard — shared class workspace',
   },
   {

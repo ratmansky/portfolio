@@ -1,4 +1,4 @@
-const imageBase = '/projects/redesign-of-teacher-dashboard';
+const imageBase = '/assets/projects/redesign-of-teacher-dashboard';
 
 export const redesignOfTeacherDashboard = {
   id: 'redesign-of-teacher-dashboard',

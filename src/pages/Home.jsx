@@ -54,14 +54,22 @@ export default function Home() {
       />
 
       <section className="portfolio-layout" aria-label="Portfolio overview">
-        <div className="portfolio-row">
-          <p className="portfolio-label">Vladimir Ratmansky</p>
+        <div className="portfolio-row portfolio-row--intro">
+          <div className="portfolio-intro-header">
+            <img
+              className="portfolio-portrait"
+              src="/assets/shared/portrait.png"
+              alt="Vladimir Ratmansky"
+              width={157}
+              height={209}
+              decoding="async"
+            />
+            <p className="portfolio-label">Vladimir Ratmansky</p>
+          </div>
 
           <div className="portfolio-content">
             <p className="portfolio-copy">
-              <span className="portfolio-copy-accent">Hi!</span>
-              {' '}
-              Over the past 8 years, I&apos;ve worked on learning platforms, teacher
+              Hi! Over the past 8 years, I&apos;ve worked on learning platforms, teacher
               tools, and B2C products used by millions of people - helping teams simplify
               workflows, improve engagement, and build products people can actually use.
             </p>

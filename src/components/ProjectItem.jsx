@@ -1,24 +1,54 @@
 import React from 'react';
-import HoverLink from './HoverLink';
+import { Link } from 'react-router-dom';
+import useDelayedLinkClick from '../hooks/useDelayedLinkClick';
 
 export default function ProjectItem({ project, onPreviewShow }) {
-  const linkProps = project.to?.startsWith('/')
-    ? { to: project.to }
-    : { href: project.href || project.to || '#' };
+  const handleDelayedClick = useDelayedLinkClick();
+  const isRouterLink = project.to?.startsWith('/');
+  const isExternal = project.href?.startsWith('http');
+  const href = project.href || project.to || '#';
 
-  return (
-    <article
-      className="project-item"
-      onMouseEnter={() => onPreviewShow(project)}
-      onFocus={() => onPreviewShow(project)}
-    >
+  const onClick = (event) => {
+    handleDelayedClick(event, {
+      to: isRouterLink ? project.to : undefined,
+      href: isRouterLink ? undefined : href,
+      isExternal,
+    });
+  };
+
+  const linkBody = (
+    <>
       <div className="project-header">
-        <HoverLink {...linkProps} className="project-title">
-          {project.title}
-        </HoverLink>
+        <span className="project-title hover-link">{project.title}</span>
         <p className="project-date">{project.period}</p>
       </div>
       <p className="project-description">{project.description}</p>
+    </>
+  );
+
+  return (
+    <article className="project-item">
+      <div
+        className="project-item-content"
+        onMouseEnter={() => onPreviewShow(project)}
+        onFocus={() => onPreviewShow(project)}
+      >
+        {isRouterLink ? (
+          <Link className="project-item-link" to={project.to} onClick={onClick}>
+            {linkBody}
+          </Link>
+        ) : (
+          <a
+            className="project-item-link"
+            href={href}
+            target={isExternal ? '_blank' : undefined}
+            rel={isExternal ? 'noreferrer' : undefined}
+            onClick={onClick}
+          >
+            {linkBody}
+          </a>
+        )}
+      </div>
     </article>
   );
 }

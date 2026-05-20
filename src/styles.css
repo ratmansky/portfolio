@@ -40,11 +40,14 @@
   --row-gap: 24px;
   --text-max: 467px;
   --section-gap: 48px;
-  --preview-left: 61px;
+  --media-left: calc(8.33% + 2px - 30px);
   --preview-bottom: 61px;
   --preview-width: 342px;
   --preview-height: 296px;
   --project-gap: 28px;
+  --portrait-width: 157px;
+  --portrait-height: 209px;
+  --chrome-top: 24px;
 }
 
 * {
@@ -98,6 +101,7 @@ p {
 }
 
 .page {
+  position: relative;
   min-height: 100vh;
   padding:
     var(--page-top)
@@ -108,7 +112,7 @@ p {
 
 .theme-toggle {
   position: fixed;
-  top: 24px;
+  top: var(--chrome-top);
   right: 24px;
   z-index: 20;
   display: inline-flex;
@@ -160,6 +164,22 @@ p {
   text-align: left;
 }
 
+.portfolio-intro-header {
+  display: contents;
+}
+
+.portfolio-portrait {
+  position: fixed;
+  left: var(--media-left);
+  top: var(--chrome-top);
+  width: var(--portrait-width);
+  height: var(--portrait-height);
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .portfolio-layout {
   width: min(var(--content-max), 100%);
   display: flex;
@@ -209,7 +229,7 @@ p {
 
 .project-preview {
   position: fixed;
-  left: var(--preview-left);
+  left: var(--media-left);
   bottom: var(--preview-bottom);
   width: var(--preview-width);
   height: var(--preview-height);
@@ -262,6 +282,22 @@ p {
   min-width: 0;
 }
 
+.project-item-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+}
+
+.project-item-link {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
 .project-header {
   display: flex;
   align-items: flex-start;
@@ -286,6 +322,18 @@ p {
   width: 100%;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .project-item-link:hover .project-title.hover-link,
+  .project-item-link:focus-visible .project-title.hover-link {
+    background-position: 0 0;
+  }
+
+  .project-item-link:active .project-title.hover-link {
+    --link-accent: var(--accent-pressed);
+    --link-text: var(--text-pressed);
+  }
+}
+
 .link-row {
   display: flex;
   flex-wrap: wrap;
@@ -300,6 +348,7 @@ p {
 .hover-link {
   --link-accent: var(--accent);
   --link-text: var(--text);
+  --hover-link-fill-duration: 520ms;
   display: inline-flex;
   align-items: center;
   padding: 0 2px;
@@ -318,34 +367,53 @@ p {
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  transition: background-position 520ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-position var(--hover-link-fill-duration)
+    cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.hover-link:hover,
-.hover-link:focus-visible {
+.hover-link.hover-link--filled {
   background-position: 0 0;
 }
 
-.hover-link:active {
-  --link-accent: var(--accent-pressed);
-  --link-text: var(--text-pressed);
+@media (hover: hover) and (pointer: fine) {
+  .hover-link:hover,
+  .hover-link:focus-visible {
+    background-position: 0 0;
+  }
+
+  .hover-link:active {
+    --link-accent: var(--accent-pressed);
+    --link-text: var(--text-pressed);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hover-link {
+    --hover-link-fill-duration: 180ms;
     background-image: none;
     color: var(--text);
     -webkit-text-fill-color: currentColor;
-    transition: color 180ms ease;
+    transition: color var(--hover-link-fill-duration) ease;
   }
 
-  .hover-link:hover,
-  .hover-link:focus-visible {
-    color: var(--accent);
-  }
+  @media (hover: hover) and (pointer: fine) {
+    .hover-link:hover,
+    .hover-link:focus-visible {
+      color: var(--accent);
+    }
 
-  .hover-link:active {
-    color: var(--accent-pressed);
+    .project-item-link:hover .project-title.hover-link,
+    .project-item-link:focus-visible .project-title.hover-link {
+      color: var(--accent);
+    }
+
+    .project-item-link:active .project-title.hover-link {
+      color: var(--accent-pressed);
+    }
+
+    .hover-link:active {
+      color: var(--accent-pressed);
+    }
   }
 
   .project-preview {
@@ -365,12 +433,37 @@ p {
 }
 
 @media (max-width: 960px) {
+  .theme-toggle {
+    top: var(--page-top);
+  }
+
+  .portfolio-intro-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--block-gap);
+  }
+
+  .portfolio-row--intro .portfolio-intro-header .portfolio-label {
+    padding-top: 12px;
+  }
+
+  .portfolio-portrait {
+    position: static;
+    width: var(--portrait-width);
+    height: var(--portrait-height);
+  }
+
   :root {
     --page-top: 48px;
     --page-bottom: 72px;
     --page-inline-min: 20px;
+    --block-gap: 42px;
     --section-gap: 40px;
     --label-width: 100%;
+  }
+
+  .portfolio-layout {
+    gap: var(--block-gap);
   }
 
   .page {
@@ -402,10 +495,10 @@ p {
     --page-inline-min: 16px;
     --section-gap: 32px;
     --project-gap: 24px;
+    --chrome-top: 16px;
   }
 
   .theme-toggle {
-    top: 16px;
     right: 16px;
   }
 

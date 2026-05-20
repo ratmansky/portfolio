@@ -24,7 +24,7 @@
 |-----|------|
 | Контент (текст, структура) | `src/projects/redesign-of-teacher-dashboard/content.js` |
 | Страница | `src/pages/RedesignOfTeacherDashboard.jsx` |
-| Изображения | `public/projects/redesign-of-teacher-dashboard/*.png` |
+| Изображения | `public/assets/projects/redesign-of-teacher-dashboard/*.png` |
 | Карточка на главной | `src/data/projects.js` |
 
 ## Карточка на главной
@@ -56,5 +56,5 @@
 ## Как править контент
 
 1. Текст — `content.js`, массив `sections`.
-2. Картинки — положить в `public/projects/redesign-of-teacher-dashboard/`, обновить `src` в `content.js`.
+2. Картинки — положить в `public/assets/projects/redesign-of-teacher-dashboard/`, обновить `imageBase` в `content.js`.
 3. Стили кейса — `src/styles.css`, блок `/* Case study */`.
