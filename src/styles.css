@@ -618,6 +618,18 @@ p {
     flex-shrink: 0;
 }
 
+.case-study-summary-logo--theme-light {
+    display: none;
+}
+
+[data-theme="light"] .case-study-summary-logo--theme-dark {
+    display: none;
+}
+
+[data-theme="light"] .case-study-summary-logo--theme-light {
+    display: block;
+}
+
 .case-study-summary-heading--right {
     grid-column: 2;
     grid-row: 1;

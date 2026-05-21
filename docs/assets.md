@@ -43,3 +43,4 @@ const imageBase = '/assets/projects/redesign-of-teacher-dashboard';
 
 - Скриншоты: PNG или WebP
 - Превью на главной: ~342×296 px (`--preview-width` / `--preview-height` в `src/styles.css`)
+- Логотип кейса (COVO): `covo-logo.svg` (dark-тема, `#fff`) и `covo-logo-light.svg` (light-тема, `#000`); в `content.js` — `logo` + `logoLight`

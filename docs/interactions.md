@@ -19,6 +19,8 @@ On devices without hover (`(hover: none)` or `(pointer: coarse)`), the first tap
 
 Used in `HoverLink` (contact links, case back link) and `ProjectItem` (project list).
 
+**Home contact row** (`src/pages/Home.jsx`, `introLinks`): `e-mail`, `telegram`, `cv` (Google Doc — opens in a new tab like other `http` links).
+
 Desktop pointer hover is unchanged; clicks navigate immediately.
 
 ## Reduced motion

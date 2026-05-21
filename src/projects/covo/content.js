@@ -11,6 +11,7 @@ export const covo = {
   role: "Led product design",
   summary: {
     logo: `${covoAssets}/covo-logo.svg`,
+    logoLight: `${covoAssets}/covo-logo-light.svg`,
     heading: "COVO | 2025-now",
     paragraphs: [
       "COVO is a corporate social network and intranet platform that helps employees stay connected, share knowledge, and quickly find relevant company information.",

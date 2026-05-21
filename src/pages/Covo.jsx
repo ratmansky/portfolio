@@ -116,14 +116,26 @@ export default function Covo() {
               <div className="case-study-summary" role="group" aria-label="Project overview">
                 <div className="case-study-summary-heading case-study-summary-heading--left">
                   {content.summary.logo ? (
-                    <img
-                      src={content.summary.logo}
-                      alt=""
-                      className="case-study-summary-logo"
-                      width={24}
-                      height={24}
-                      decoding="async"
-                    />
+                    <>
+                      <img
+                        src={content.summary.logo}
+                        alt=""
+                        className="case-study-summary-logo case-study-summary-logo--theme-dark"
+                        width={24}
+                        height={24}
+                        decoding="async"
+                      />
+                      {content.summary.logoLight ? (
+                        <img
+                          src={content.summary.logoLight}
+                          alt=""
+                          className="case-study-summary-logo case-study-summary-logo--theme-light"
+                          width={24}
+                          height={24}
+                          decoding="async"
+                        />
+                      ) : null}
+                    </>
                   ) : null}
                   <span>{content.summary.heading}</span>
                 </div>

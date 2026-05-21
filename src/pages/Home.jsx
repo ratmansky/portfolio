@@ -8,6 +8,10 @@ import { projects } from '../data/projects';
 const introLinks = [
   { label: 'e-mail', href: 'mailto:hello@vladimirratmansky.com' },
   { label: 'telegram', href: 'https://t.me/ratmanskii' },
+  {
+    label: 'cv',
+    href: 'https://docs.google.com/document/d/1h2_EXgUdPY3j5BnsrHYqhF5eolvo7RXaHXGzEy5MEUE/edit?usp=sharing',
+  },
 ];
 
 export default function Home() {
