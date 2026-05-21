@@ -120,8 +120,8 @@ export default function Covo() {
                       src={content.summary.logo}
                       alt=""
                       className="case-study-summary-logo"
-                      width={16}
-                      height={16}
+                      width={24}
+                      height={24}
                       decoding="async"
                     />
                   ) : null}
@@ -150,7 +150,6 @@ export default function Covo() {
                       </li>
                     ))}
                   </ul>
-                  <p className="case-study-summary-year">{content.summary.team.year}</p>
                 </aside>
               </div>
             ) : null}

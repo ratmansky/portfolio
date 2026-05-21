@@ -20,7 +20,7 @@ export default function ProjectItem({ project, onPreviewShow }) {
     <>
       <div className="project-header">
         <span className="project-title hover-link">{project.title}</span>
-        <p className="project-date">{project.period}</p>
+        <span className="project-date">{project.period}</span>
       </div>
       <p className="project-description">{project.description}</p>
     </>
