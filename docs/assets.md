@@ -7,7 +7,7 @@
 | Папка | URL на сайте | Назначение |
 |-------|--------------|------------|
 | `public/assets/shared/` | `/assets/shared/…` | Favicon, портрет на главной (`portrait.png`), OG-картинки |
-| `public/assets/projects/<id>/` | `/assets/projects/<id>/…` | Скриншоты и медиа кейсов |
+| `public/assets/projects/<id>/` | `/assets/projects/<id>/…` | Скриншоты и медиа кейсов (напр. `covo/covo-logo.png`) |
 | `public/assets/previews/` | `/assets/previews/…` | Превью при ховере на главной (если файл не из папки кейса) |
 
 ## Примеры путей

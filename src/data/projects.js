@@ -1,10 +1,10 @@
 export const projects = [
   {
     id: 'covo',
-    title: 'Led product design',
-    to: '#',
+    title: 'Taking a corporate intranet from zero to MVP',
+    to: '/projects/covo',
     period: 'Jan 2025 – present',
-    description: 'COVO | corporate social network and intranet platform',
+    description: 'COVO | corporate ecosystem and intranet platform',
     previewColor: '#ffffff',
   },
   {

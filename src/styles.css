@@ -124,7 +124,7 @@ p {
   background: transparent;
   color: var(--muted);
   font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1;
   cursor: pointer;
   transition: color 180ms ease;
@@ -225,7 +225,7 @@ p {
 .project-description {
   font-family: var(--font-main);
   font-weight: var(--font-main-weight);
-  font-size: 16px;
+  font-size: 15px;
   line-height: 24px;
   letter-spacing: var(--font-main-letter-spacing);
 }
@@ -364,7 +364,7 @@ p {
   align-items: center;
   gap: 12px;
   font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
   line-height: 32px;
 }
@@ -539,7 +539,7 @@ p {
   .project-title,
   .project-date,
   .project-description {
-    font-size: 14px;
+    font-size: 13px;
     line-height: 22px;
   }
 
@@ -570,7 +570,7 @@ p {
 
 .case-study-meta {
   color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 22px;
 }
 
@@ -582,6 +582,94 @@ p {
   font-weight: 400;
   line-height: 1.15;
   letter-spacing: -0.02em;
+}
+
+.case-study-summary {
+  --case-summary-right: minmax(148px, 28%);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--case-summary-right);
+  grid-template-rows: auto 1fr;
+  column-gap: clamp(40px, 8vw, 120px);
+  row-gap: 12px;
+  margin-top: 16px;
+  width: 100%;
+  max-width: calc(var(--content-max) - var(--label-width) - var(--row-gap));
+}
+
+.case-study-summary-heading {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-main);
+  font-size: 15px;
+  font-weight: var(--font-main-weight);
+  line-height: 24px;
+  letter-spacing: var(--font-main-letter-spacing);
+}
+
+.case-study-summary-heading--left {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.case-study-summary-logo {
+  display: block;
+  width: auto;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.case-study-summary-heading--right {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.case-study-summary-cell--left {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 52ch;
+}
+
+.case-study-summary-cell--right {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  min-height: 100%;
+}
+
+.case-study-summary-team {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  font-family: var(--font-main);
+  font-size: 15px;
+  font-weight: var(--font-main-weight);
+  line-height: 24px;
+  letter-spacing: var(--font-main-letter-spacing);
+}
+
+.case-study-summary-team-item--muted {
+  color: var(--muted);
+}
+
+.case-study-summary-year {
+  margin: auto 0 0;
+  padding-top: 32px;
+  font-family: var(--font-main);
+  font-size: 15px;
+  font-weight: var(--font-main-weight);
+  line-height: 24px;
+  letter-spacing: var(--font-main-letter-spacing);
 }
 
 .case-study-body .portfolio-content {
@@ -611,14 +699,14 @@ p {
 .case-study-heading {
   margin: 0;
   font-family: var(--font-main);
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 400;
   line-height: 28px;
   letter-spacing: -0.01em;
 }
 
 .case-study-heading--sub {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 24px;
   color: var(--muted);
 }
@@ -627,7 +715,7 @@ p {
   margin: 0;
   color: var(--text);
   font-family: var(--font-main);
-  font-size: 16px;
+  font-size: 15px;
   line-height: 24px;
 }
 
@@ -643,7 +731,7 @@ p {
 .case-study-list-title {
   margin: 0 0 4px;
   color: var(--text);
-  font-size: 16px;
+  font-size: 15px;
   line-height: 24px;
 }
 
@@ -709,7 +797,7 @@ p {
 .case-study-metric-label {
   margin: 0;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
   line-height: 20px;
 }
 
@@ -731,19 +819,51 @@ p {
 }
 
 @media (max-width: 640px) {
+  .case-study-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: none;
+  }
+
+  .case-study-summary-heading--left {
+    order: 1;
+  }
+
+  .case-study-summary-cell--left {
+    order: 2;
+    max-width: none;
+  }
+
+  .case-study-summary-heading--right {
+    order: 3;
+    margin-top: 8px;
+  }
+
+  .case-study-summary-cell--right {
+    order: 4;
+  }
+
+  .case-study-summary-year {
+    margin-top: 0;
+    padding-top: 16px;
+  }
+
   .case-study-title {
-    font-size: 24px;
+    font-size: 23px;
     line-height: 1.2;
   }
 
   .case-study-heading {
-    font-size: 18px;
+    font-size: 17px;
     line-height: 26px;
   }
 
   .case-study-text,
-  .case-study-list-title {
-    font-size: 14px;
+  .case-study-list-title,
+  .case-study-summary-team,
+  .case-study-summary-year {
+    font-size: 13px;
     line-height: 22px;
   }
 }
