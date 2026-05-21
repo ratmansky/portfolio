@@ -33,7 +33,7 @@
   --font-main-letter-spacing: 0;
   --page-inline-min: 20px;
   --page-inline-desktop: calc(33.33% + 8px);
-  --page-top: 131px;
+  --page-top: var(--chrome-top);
   --page-bottom: 120px;
   --content-max: 713px;
   --label-width: 220px;
@@ -47,6 +47,7 @@
   --project-gap: 28px;
   --portrait-width: 157px;
   --portrait-height: 209px;
+  --portrait-tint-opacity: 0.42;
   --chrome-top: 24px;
 }
 
@@ -168,16 +169,39 @@ p {
   display: contents;
 }
 
-.portfolio-portrait {
+.portfolio-portrait-wrap {
   position: fixed;
   left: var(--media-left);
   top: var(--chrome-top);
   width: var(--portrait-width);
   height: var(--portrait-height);
+  overflow: hidden;
+  isolation: isolate;
+  z-index: 1;
+}
+
+.portfolio-portrait {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+.portfolio-portrait-tint {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  opacity: 0;
+  mix-blend-mode: multiply;
+  transition: opacity 320ms ease;
   pointer-events: none;
-  z-index: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .portfolio-portrait-wrap:hover .portfolio-portrait-tint {
+    opacity: var(--portrait-tint-opacity);
+  }
 }
 
 .portfolio-layout {
@@ -424,6 +448,10 @@ p {
   .theme-toggle-thumb {
     transition: none;
   }
+
+  .portfolio-portrait-tint {
+    transition: none;
+  }
 }
 
 @media (max-width: 1280px) {
@@ -447,10 +475,14 @@ p {
     padding-top: 12px;
   }
 
-  .portfolio-portrait {
+  .portfolio-portrait-wrap {
     position: static;
     width: var(--portrait-width);
     height: var(--portrait-height);
+  }
+
+  .portfolio-portrait-tint {
+    display: none;
   }
 
   :root {

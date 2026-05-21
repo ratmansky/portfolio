@@ -56,14 +56,17 @@ export default function Home() {
       <section className="portfolio-layout" aria-label="Portfolio overview">
         <div className="portfolio-row portfolio-row--intro">
           <div className="portfolio-intro-header">
-            <img
-              className="portfolio-portrait"
-              src="/assets/shared/portrait.png"
-              alt="Vladimir Ratmansky"
-              width={157}
-              height={209}
-              decoding="async"
-            />
+            <div className="portfolio-portrait-wrap">
+              <img
+                className="portfolio-portrait"
+                src="/assets/shared/portrait.png"
+                alt="Vladimir Ratmansky"
+                width={157}
+                height={209}
+                decoding="async"
+              />
+              <span className="portfolio-portrait-tint" aria-hidden="true" />
+            </div>
             <p className="portfolio-label">Vladimir Ratmansky</p>
           </div>
 
