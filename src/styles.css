@@ -257,7 +257,7 @@ p {
 .project-preview {
     position: fixed;
     left: var(--preview-x, var(--media-left));
-    top: calc(var(--preview-y, calc(100vh - var(--preview-bottom))) - var(--preview-height));
+    top: var(--preview-top, calc(100vh - var(--preview-bottom) - var(--preview-height)));
     width: var(--preview-width);
     height: var(--preview-height);
     background: var(--preview-color, #ffffff);

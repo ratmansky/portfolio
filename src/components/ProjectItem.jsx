@@ -9,6 +9,10 @@ export default function ProjectItem({ project, onPreviewShow }) {
   const href = project.href || project.to || '#';
 
   const handlePreviewPointer = (event) => {
+    if (event.pointerType && event.pointerType !== 'mouse') {
+      return;
+    }
+
     onPreviewShow(project, {
       x: event.clientX,
       y: event.clientY,
@@ -37,8 +41,8 @@ export default function ProjectItem({ project, onPreviewShow }) {
     <article className="project-item">
       <div
         className="project-item-content"
-        onMouseEnter={handlePreviewPointer}
-        onMouseMove={handlePreviewPointer}
+        onPointerEnter={handlePreviewPointer}
+        onPointerMove={handlePreviewPointer}
         onFocus={() => onPreviewShow(project)}
       >
         <figure

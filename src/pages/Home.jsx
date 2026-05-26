@@ -14,12 +14,36 @@ const introLinks = [
   },
 ];
 
+const PREVIEW_WIDTH = 342;
+const PREVIEW_HEIGHT = 296;
+const PREVIEW_OFFSET = 16;
+
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
 function shouldUsePointerPreview() {
   if (typeof window === 'undefined') {
     return false;
   }
 
-  return window.matchMedia('(min-width: 641px) and (max-width: 960px) and (hover: hover) and (pointer: fine)').matches;
+  return window.matchMedia('(min-width: 641px) and (max-width: 1280px) and (hover: hover) and (pointer: fine)').matches;
+}
+
+function getPreviewPoint(point) {
+  if (!point || typeof window === 'undefined' || !shouldUsePointerPreview()) {
+    return null;
+  }
+
+  const maxX = Math.max(PREVIEW_OFFSET, window.innerWidth - PREVIEW_WIDTH - PREVIEW_OFFSET);
+  const maxY = Math.max(PREVIEW_OFFSET, window.innerHeight - PREVIEW_HEIGHT - PREVIEW_OFFSET);
+  const preferredX = point.x + PREVIEW_OFFSET;
+  const preferredY = point.y - PREVIEW_HEIGHT - PREVIEW_OFFSET;
+
+  return {
+    x: clamp(preferredX, PREVIEW_OFFSET, maxX),
+    y: clamp(preferredY, PREVIEW_OFFSET, maxY),
+  };
 }
 
 export default function Home() {
@@ -44,7 +68,7 @@ export default function Home() {
     setPreviewColor(project.previewColor);
     setPreviewImage(project.previewImage ?? null);
     setPreviewImageAlt(project.previewImageAlt ?? '');
-    setPreviewPoint(shouldUsePointerPreview() ? point : null);
+    setPreviewPoint(getPreviewPoint(point));
     setPreviewVisible(true);
   };
 

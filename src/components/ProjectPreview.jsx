@@ -6,7 +6,7 @@ export default function ProjectPreview({ visible, color, image, imageAlt, point 
     ? {
         '--preview-color': color,
         '--preview-x': `${point.x}px`,
-        '--preview-y': `${point.y}px`,
+        '--preview-top': `${point.y}px`,
       }
     : { '--preview-color': color };
 
