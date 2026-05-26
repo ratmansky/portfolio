@@ -1,18 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import CaseStudyImage from '../components/CaseStudyImage';
 import HoverLink from '../components/HoverLink';
+import ImageModal from '../components/ImageModal';
 import { covo as content } from '../projects/covo/content';
-
-function CaseStudyImage({ image, wide }) {
-  if (!image) {
-    return null;
-  }
-
-  return (
-    <figure className={`case-study-figure ${wide ? 'case-study-figure--wide' : ''}`}>
-      <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
-    </figure>
-  );
-}
 
 function CaseStudySection({ section, metrics }) {
   if (section.type === 'metrics') {
@@ -81,6 +71,7 @@ function CaseStudyScrollPreview({ sections, onActiveIndexChange }) {
     [sections],
   );
   const [activePreview, setActivePreview] = useState(previewSections[0] ?? null);
+  const [openPreview, setOpenPreview] = useState(null);
 
   useEffect(() => {
     previewSections.forEach((preview) => {
@@ -162,14 +153,24 @@ function CaseStudyScrollPreview({ sections, onActiveIndexChange }) {
   }
 
   return (
-    <figure className="case-study-scroll-preview" aria-hidden="true">
-      <img
-        key={activePreview.src}
-        src={activePreview.src}
-        alt=""
-        loading="eager"
-        decoding="async"
-      />
+    <figure className="case-study-scroll-preview">
+      <button
+        className="case-study-scroll-preview-button"
+        type="button"
+        aria-label="Open image"
+        onClick={() => setOpenPreview(activePreview)}
+      >
+        <img
+          key={activePreview.src}
+          src={activePreview.src}
+          alt={activePreview.alt}
+          loading="eager"
+          decoding="async"
+        />
+      </button>
+      {openPreview ? (
+        <ImageModal image={openPreview} onClose={() => setOpenPreview(null)} />
+      ) : null}
     </figure>
   );
 }
