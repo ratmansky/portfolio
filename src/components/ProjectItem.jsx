@@ -8,6 +8,13 @@ export default function ProjectItem({ project, onPreviewShow }) {
   const isExternal = project.href?.startsWith('http');
   const href = project.href || project.to || '#';
 
+  const handlePreviewPointer = (event) => {
+    onPreviewShow(project, {
+      x: event.clientX,
+      y: event.clientY,
+    });
+  };
+
   const onClick = (event) => {
     handleDelayedClick(event, {
       to: isRouterLink ? project.to : undefined,
@@ -30,9 +37,31 @@ export default function ProjectItem({ project, onPreviewShow }) {
     <article className="project-item">
       <div
         className="project-item-content"
-        onMouseEnter={() => onPreviewShow(project)}
+        onMouseEnter={handlePreviewPointer}
+        onMouseMove={handlePreviewPointer}
         onFocus={() => onPreviewShow(project)}
       >
+        <figure
+          className={[
+            'project-item-inline-preview',
+            project.previewImage ? 'project-item-inline-preview--image' : '',
+          ]
+            .filter(Boolean)
+            .join(' ')}
+          style={{ '--project-preview-color': project.previewColor }}
+          aria-hidden="true"
+        >
+          {project.previewImage ? (
+            <img
+              className="project-item-inline-preview-image"
+              src={project.previewImage}
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          ) : null}
+        </figure>
+
         {isRouterLink ? (
           <Link className="project-item-link" to={project.to} onClick={onClick}>
             {linkBody}

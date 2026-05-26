@@ -14,11 +14,20 @@ const introLinks = [
   },
 ];
 
+function shouldUsePointerPreview() {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  return window.matchMedia('(min-width: 641px) and (max-width: 960px) and (hover: hover) and (pointer: fine)').matches;
+}
+
 export default function Home() {
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewColor, setPreviewColor] = useState('#ffffff');
   const [previewImage, setPreviewImage] = useState(null);
   const [previewImageAlt, setPreviewImageAlt] = useState('');
+  const [previewPoint, setPreviewPoint] = useState(null);
 
   useEffect(() => {
     projects.forEach((project) => {
@@ -31,15 +40,17 @@ export default function Home() {
     });
   }, []);
 
-  const showPreview = (project) => {
+  const showPreview = (project, point = null) => {
     setPreviewColor(project.previewColor);
     setPreviewImage(project.previewImage ?? null);
     setPreviewImageAlt(project.previewImageAlt ?? '');
+    setPreviewPoint(shouldUsePointerPreview() ? point : null);
     setPreviewVisible(true);
   };
 
   const hidePreview = () => {
     setPreviewVisible(false);
+    setPreviewPoint(null);
   };
 
   const handleProjectsFocusOut = (event) => {
@@ -55,6 +66,7 @@ export default function Home() {
         color={previewColor}
         image={previewImage}
         imageAlt={previewImageAlt}
+        point={previewPoint}
       />
 
       <section className="portfolio-layout" aria-label="Portfolio overview">

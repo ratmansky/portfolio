@@ -1,7 +1,14 @@
 import React from 'react';
 
-export default function ProjectPreview({ visible, color, image, imageAlt }) {
+export default function ProjectPreview({ visible, color, image, imageAlt, point }) {
   const hasImage = Boolean(image);
+  const style = point
+    ? {
+        '--preview-color': color,
+        '--preview-x': `${point.x}px`,
+        '--preview-y': `${point.y}px`,
+      }
+    : { '--preview-color': color };
 
   return (
     <div
@@ -12,7 +19,7 @@ export default function ProjectPreview({ visible, color, image, imageAlt }) {
       ]
         .filter(Boolean)
         .join(' ')}
-      style={{ '--preview-color': color }}
+      style={style}
       aria-hidden={!visible}
     >
       {hasImage ? (

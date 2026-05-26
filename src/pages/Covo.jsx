@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import HoverLink from '../components/HoverLink';
 import { covo as content } from '../projects/covo/content';
 
@@ -15,22 +15,9 @@ function CaseStudyImage({ image, wide }) {
 }
 
 function CaseStudySection({ section, metrics }) {
-  if (section.type === 'intro') {
-    return (
-      <div className="case-study-block case-study-block--intro">
-        {section.paragraphs.map((paragraph) => (
-          <p key={paragraph.slice(0, 48)} className="case-study-text">
-            {paragraph}
-          </p>
-        ))}
-      </div>
-    );
-  }
-
   if (section.type === 'metrics') {
     return (
       <div className="case-study-block">
-        <h2 className="case-study-heading">{section.heading}</h2>
         <ul className="case-study-metrics" aria-label="Project metrics">
           {metrics.map((metric) => (
             <li key={metric.label} className="case-study-metric">
@@ -56,12 +43,6 @@ function CaseStudySection({ section, metrics }) {
         .filter(Boolean)
         .join(' ')}
     >
-      {section.heading ? (
-        <h2 className={`case-study-heading ${isSubsection ? 'case-study-heading--sub' : ''}`}>
-          {section.heading}
-        </h2>
-      ) : null}
-
       {section.paragraphs?.map((paragraph) => (
         <p key={paragraph.slice(0, 48)} className="case-study-text">
           {paragraph}
@@ -92,13 +73,121 @@ function CaseStudySection({ section, metrics }) {
   );
 }
 
+function CaseStudyScrollPreview({ sections, onActiveIndexChange }) {
+  const previewSections = useMemo(
+    () => sections
+      .map((section, index) => ({ ...section.previewImage, index }))
+      .filter((preview) => preview.src),
+    [sections],
+  );
+  const [activePreview, setActivePreview] = useState(previewSections[0] ?? null);
+
+  useEffect(() => {
+    previewSections.forEach((preview) => {
+      const image = new Image();
+      image.src = preview.src;
+    });
+  }, [previewSections]);
+
+  useEffect(() => {
+    if (!previewSections.length || typeof window === 'undefined') {
+      return undefined;
+    }
+
+    let frame = 0;
+    const initialTimers = [];
+
+    const updateActivePreview = () => {
+      frame = 0;
+
+      const marker = window.innerHeight * 0.42;
+      const previewBlocks = [...document.querySelectorAll('[data-case-preview-index]')];
+      const currentBlock = previewBlocks.reduce((current, block) => {
+        const rect = block.getBoundingClientRect();
+        const distance = Math.abs(rect.top - marker);
+
+        if (rect.top <= marker && rect.bottom >= 80) {
+          return { block, distance: 0 };
+        }
+
+        if (!current || distance < current.distance) {
+          return { block, distance };
+        }
+
+        return current;
+      }, null);
+
+      if (!currentBlock) {
+        return;
+      }
+
+      const index = Number(currentBlock.block.dataset.casePreviewIndex);
+      const nextPreview = previewSections.find((preview) => preview.index === index);
+
+      if (nextPreview) {
+        onActiveIndexChange?.(index);
+        setActivePreview((currentPreview) => (
+          currentPreview?.src === nextPreview.src ? currentPreview : nextPreview
+        ));
+      }
+    };
+
+    const requestUpdate = () => {
+      if (!frame) {
+        frame = window.requestAnimationFrame(updateActivePreview);
+      }
+    };
+
+    updateActivePreview();
+    initialTimers.push(window.setTimeout(updateActivePreview, 120));
+    initialTimers.push(window.setTimeout(updateActivePreview, 480));
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    window.addEventListener('pageshow', requestUpdate);
+
+    return () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+
+      initialTimers.forEach((timer) => window.clearTimeout(timer));
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
+      window.removeEventListener('pageshow', requestUpdate);
+    };
+  }, [onActiveIndexChange, previewSections]);
+
+  if (!activePreview) {
+    return null;
+  }
+
+  return (
+    <figure className="case-study-scroll-preview" aria-hidden="true">
+      <img
+        key={activePreview.src}
+        src={activePreview.src}
+        alt=""
+        loading="eager"
+        decoding="async"
+      />
+    </figure>
+  );
+}
+
 export default function Covo() {
+  const [activePreviewIndex, setActivePreviewIndex] = useState(0);
+
   useEffect(() => {
     document.title = `${content.client} — ${content.title} | Vladimir Ratmansky`;
   }, []);
 
   return (
     <main className="page page--case-study">
+      <CaseStudyScrollPreview
+        sections={content.sections}
+        onActiveIndexChange={setActivePreviewIndex}
+      />
+
       <article className="case-study">
         <header className="case-study-header portfolio-row">
           <p className="portfolio-label">
@@ -168,21 +257,39 @@ export default function Covo() {
           </div>
         </header>
 
-        <div className="case-study-body portfolio-row">
-          <p className="portfolio-label" aria-hidden="true">
-            Case study
-          </p>
+        {content.sections.map((section, index) => (
+          <div
+            className={[
+              'case-study-body',
+              'portfolio-row',
+              section.previewImage && activePreviewIndex === index ? 'case-study-body--preview-active' : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            key={section.heading || section.type}
+            data-case-preview-index={section.previewImage ? index : undefined}
+          >
+            <p className="portfolio-label" aria-hidden="true">
+              <span
+                className={[
+                  section.previewImage ? 'hover-link' : '',
+                  section.previewImage && activePreviewIndex === index ? 'hover-link--filled' : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+              >
+                {section.heading || 'Case study'}
+              </span>
+            </p>
 
-          <div className="portfolio-content case-study-content">
-            {content.sections.map((section) => (
+            <div className="portfolio-content case-study-content">
               <CaseStudySection
-                key={section.heading || section.type}
                 section={section}
                 metrics={content.metrics}
               />
-            ))}
+            </div>
           </div>
-        </div>
+        ))}
       </article>
     </main>
   );
