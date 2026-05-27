@@ -5,6 +5,8 @@ import ImageModal from '../components/ImageModal';
 import { covo as content } from '../projects/covo/content';
 
 function CaseStudySection({ section, metrics }) {
+  const [openInlinePreview, setOpenInlinePreview] = useState(null);
+
   if (section.type === 'metrics') {
     return (
       <div className="case-study-block">
@@ -22,6 +24,7 @@ function CaseStudySection({ section, metrics }) {
 
   const isSubsection = section.type === 'subsection';
   const hasMedia = Boolean(section.image || section.imageGrid);
+  const inlinePreview = section.previewImage;
 
   return (
     <div
@@ -33,8 +36,23 @@ function CaseStudySection({ section, metrics }) {
         .filter(Boolean)
         .join(' ')}
     >
-      {section.paragraphs?.map((paragraph) => (
+      {section.paragraphs?.map((paragraph, paragraphIndex) => (
         <p key={paragraph.slice(0, 48)} className="case-study-text">
+          {paragraphIndex === 0 && inlinePreview ? (
+            <button
+              className="case-study-inline-preview"
+              type="button"
+              aria-label="Open section illustration"
+              onClick={() => setOpenInlinePreview(inlinePreview)}
+            >
+              <img
+                src={inlinePreview.src}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </button>
+          ) : null}
           {paragraph}
         </p>
       ))}
@@ -58,6 +76,10 @@ function CaseStudySection({ section, metrics }) {
             <CaseStudyImage key={image.src} image={image} />
           ))}
         </div>
+      ) : null}
+
+      {openInlinePreview ? (
+        <ImageModal image={openInlinePreview} onClose={() => setOpenInlinePreview(null)} />
       ) : null}
     </div>
   );
