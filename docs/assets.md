@@ -7,7 +7,8 @@
 | Папка | URL на сайте | Назначение |
 |-------|--------------|------------|
 | `public/assets/shared/` | `/assets/shared/…` | Favicon, портрет на главной (`portrait.png`), OG-картинки |
-| `public/assets/projects/<id>/` | `/assets/projects/<id>/…` | Скриншоты и медиа кейсов (напр. `covo/covo-logo.svg`) |
+| `public/assets/projects/<id>/` | `/assets/projects/<id>/…` | Скриншоты и медиа других кейсов |
+| `public/covo/` | `/covo/…` | **COVO** — короткие имена для экспорта из Figma |
 | `public/assets/previews/` | `/assets/previews/…` | Превью при ховере на главной (если файл не из папки кейса) |
 
 ## Примеры путей
@@ -16,8 +17,8 @@
 
 ```js
 previewImage: '/assets/projects/redesign-of-teacher-dashboard/07-result-shared-class.png',
-// или отдельный файл:
-previewImage: '/assets/previews/covo.png',
+// COVO:
+previewImage: '/covo/cov1.png',
 ```
 
 **Кейс** (`src/projects/<id>/content.js`):
@@ -42,5 +43,19 @@ const imageBase = '/assets/projects/redesign-of-teacher-dashboard';
 ## Форматы
 
 - Скриншоты: PNG или WebP
-- Превью на главной: ~342×296 px (`--preview-width` / `--preview-height` в `src/styles.css`)
-- Логотип кейса (COVO): `covo-logo.svg` (dark-тема, `#fff`) и `covo-logo-light.svg` (light-тема, `#000`); в `content.js` — `logo` + `logoLight`
+- Превью на главной и в кейсе (липкое слева): **4:3**, ширина `--preview-width` (342px), высота `calc(342 * 3/4)` ≈ **257px** (`--preview-aspect-ratio: 4/3` в `src/styles.css`)
+### COVO (`public/covo/` → `/covo/`)
+
+Клади экспорт из Figma сюда, подменяя файлы **с тем же именем**. Легенда дублируется в `src/projects/covo/content.js`.
+
+| Файл | Раздел кейса |
+|------|----------------|
+| `cov1.png` | Контекст — иллюстрация (фон превью, главная) |
+| `cov2.png` | **Проблема** — липкое превью на этой секции |
+| `cov3.png` | *(не используется — можно удалить)* |
+| `cov-screens-getting-dressed.png` | Временная плашка для секций без финальных скринов |
+| `cov4.png`–`cov8.png` | Старые плейсхолдеры, сейчас не используются |
+| `cov-logo.svg` / `cov-logo-light.svg` | Логотип в шапке кейса |
+| `cov-icon.svg` / `cov-icon.png` | Иконка MeasureMate в тексте |
+
+Формат скриншотов: PNG, **4:3** (см. выше). Иллюстрация `cov1` — фон уже в экспорте из Figma; в UI без доп. подложки, рамки и тени.

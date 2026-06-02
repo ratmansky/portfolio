@@ -6,8 +6,8 @@ export const projects = [
     period: 'Jan 2025 – now',
     description: 'COVO | corporate ecosystem and intranet platform',
     previewColor: '#ffffff',
-    previewImage: '/assets/projects/covo/07-result.png',
-    previewImageAlt: 'COVO corporate intranet MVP interface preview',
+    previewImage: '/covo/cov1.png',
+    previewImageAlt: 'COVO — иллюстрация к разделу «Контекст»',
   },
   {
     id: 'project-2',

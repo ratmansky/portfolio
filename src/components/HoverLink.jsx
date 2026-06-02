@@ -25,7 +25,7 @@ export default function HoverLink({ to, href, className, children }) {
       className={classNames}
       href={href}
       target={isExternal ? '_blank' : undefined}
-      rel={isExternal ? 'noreferrer' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
       onClick={onClick}
     >
       {children}

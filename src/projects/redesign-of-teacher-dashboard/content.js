@@ -4,9 +4,24 @@ export const redesignOfTeacherDashboard = {
   id: 'redesign-of-teacher-dashboard',
   title: 'Redesign of Teacher Dashboard: How UX Improved Growth ×2',
   listTitle: 'Redesign of teacher dashboard',
+  meta: 'Uchi.ru · 2021 – 2023 · Led product design',
   client: 'Uchi.ru',
   period: '2021 – 2023',
   role: 'Led product design',
+  summary: {
+    heading: 'Uchi.ru · 2021–2023',
+    paragraphs: [
+      'At the time this project started, Uchi.ru was one of the largest EdTech platforms in the world by user base and engagement. Founded in 2012, the product had grown into a core digital infrastructure for school education in Russia: more than 14 million students, hundreds of thousands of teachers, and millions of parents used the platform daily to support learning and classroom management. By its scale, Uchi.ru ranks among the largest EdTech products globally and today operates as part of the VK ecosystem.',
+    ],
+    team: {
+      heading: 'Scope',
+      members: [
+        { text: 'Teacher dashboard & class list' },
+        { text: 'Collaboration between subject teachers' },
+        { text: 'Design system components & states' },
+      ],
+    },
+  },
   metrics: [
     { value: '×1.8', label: 'increase in active teachers' },
     { value: '+17%', label: 'growth in teacher DAU' },
@@ -14,14 +29,12 @@ export const redesignOfTeacherDashboard = {
   ],
   sections: [
     {
-      type: 'intro',
-      paragraphs: [
-        'At the time this project started, Uchi.ru was one of the largest EdTech platforms in the world by user base and engagement. Founded in 2012, the product had grown into a core digital infrastructure for school education in Russia: more than 14 million students, hundreds of thousands of teachers, and millions of parents used the platform daily to support learning and classroom management. By its scale, Uchi.ru ranks among the largest EdTech products globally and today operates as part of the VK ecosystem.',
-      ],
-    },
-    {
       type: 'section',
       heading: 'Teachers as the Key Growth Driver',
+      previewImage: {
+        src: `${imageBase}/01-flow-from-classroom-to-purchase.png`,
+        alt: 'Class structure and teacher collaboration context',
+      },
       paragraphs: [
         'The structure of the Russian school system directly shapes how the product is used. In primary school, a single teacher usually teaches all subjects to one class. In middle and high school (grades 5–11), the model changes: each subject is taught by a different teacher, and one class is shared by multiple educators.',
         'Historically, Uchi.ru was widely adopted in primary education, where this structure worked naturally. Over time, the platform expanded its content offering for grades 5–11, adding new subjects and learning scenarios. However, a new challenge emerged: while the educational content existed, there was no effective tool to reach and unite all subject teachers working with the same class.',
@@ -31,6 +44,10 @@ export const redesignOfTeacherDashboard = {
     {
       type: 'section',
       heading: 'From classroom to purchase',
+      previewImage: {
+        src: `${imageBase}/01-flow-from-classroom-to-purchase.png`,
+        alt: 'Flow from teacher class work to parent premium purchase',
+      },
       image: {
         src: `${imageBase}/01-flow-from-classroom-to-purchase.png`,
         alt: 'Flow diagram: primary school path from teacher to parent purchase vs broken secondary school path with duplicate classes',
@@ -42,17 +59,26 @@ export const redesignOfTeacherDashboard = {
     },
     {
       type: 'section',
-      paragraphs: [
-        'After the first three interviews with teachers, it became clear that the issues were not isolated but systemic. Regardless of subject, experience level, or number of classes, teachers encountered the same problems when working with the class list and collaborating with other educators. This allowed us to quickly identify the key UX bottlenecks and focus on them moving forward.',
-      ],
+      heading: 'The existing dashboard',
+      previewImage: {
+        src: `${imageBase}/02-old-teacher-dashboard.png`,
+        alt: 'Previous teacher dashboard interface',
+      },
       image: {
         src: `${imageBase}/02-old-teacher-dashboard.png`,
         alt: 'Previous teacher dashboard interface',
       },
+      paragraphs: [
+        'After the first three interviews with teachers, it became clear that the issues were not isolated but systemic. Regardless of subject, experience level, or number of classes, teachers encountered the same problems when working with the class list and collaborating with other educators. This allowed us to quickly identify the key UX bottlenecks and focus on them moving forward.',
+      ],
     },
     {
       type: 'section',
       heading: 'Key UX Problems (Before)',
+      previewImage: {
+        src: `${imageBase}/04-ux-problems.png`,
+        alt: 'Annotated UX problems in the old class list',
+      },
       list: [
         {
           title: 'Lack of a safe and convenient way to connect other teachers',
@@ -79,6 +105,10 @@ export const redesignOfTeacherDashboard = {
     {
       type: 'section',
       heading: 'Design-led exploration',
+      previewImage: {
+        src: `${imageBase}/03-teacher-dashboard-context.png`,
+        alt: 'Research and exploration context screens',
+      },
       paragraphs: [
         'I didn’t start with classical research. The problem was systemic and already visible in the product, but teachers found it hard to articulate it verbally. Instead, I used design as a research tool: quickly prototyping key scenarios and validating them through interviews with teachers.',
         'This approach allowed me to focus on concrete product decisions. First, I confirmed that a class must be a single shared workspace where subjects, teachers, and roles are managed transparently. A table-based model for assigning subjects to teachers proved to be clear and easy to understand for educators with different levels of experience.',
@@ -91,26 +121,38 @@ export const redesignOfTeacherDashboard = {
         src: `${imageBase}/03-teacher-dashboard-context.png`,
         alt: 'Research and exploration context screens',
       },
-    },
-    {
-      type: 'subsection',
-      heading: 'First iterations',
-      image: {
-        src: `${imageBase}/05-first-iterations.png`,
-        alt: 'Early interface iterations for shared class and teacher collaboration',
-      },
-    },
-    {
-      type: 'subsection',
-      heading: 'Design system',
-      image: {
-        src: `${imageBase}/06-design-system.png`,
-        alt: 'Updated design system components and states',
-      },
+      subsections: [
+        {
+          heading: 'First iterations',
+          previewImage: {
+            src: `${imageBase}/05-first-iterations.png`,
+            alt: 'Early interface iterations for shared class and teacher collaboration',
+          },
+          image: {
+            src: `${imageBase}/05-first-iterations.png`,
+            alt: 'Early interface iterations for shared class and teacher collaboration',
+          },
+        },
+        {
+          heading: 'Design system',
+          previewImage: {
+            src: `${imageBase}/06-design-system.png`,
+            alt: 'Updated design system components and states',
+          },
+          image: {
+            src: `${imageBase}/06-design-system.png`,
+            alt: 'Updated design system components and states',
+          },
+        },
+      ],
     },
     {
       type: 'section',
       heading: 'Result of work',
+      previewImage: {
+        src: `${imageBase}/07-result-shared-class.png`,
+        alt: 'New shared class workspace',
+      },
       paragraphs: [
         'When designing the new interface, I intentionally accounted for the age profile of teachers. In Russian schools, a significant number of educators are over 55–60 years old, which directly impacts interface requirements. It was important to make the experience clear, predictable, and visually calm.',
         'I deliberately designed larger interactive areas, clear visual hierarchy, strong contrast between states, and minimized distracting elements. Action labels were written in a straightforward and unambiguous way, avoiding complex terminology.',
@@ -152,3 +194,29 @@ export const redesignOfTeacherDashboard = {
     },
   ],
 };
+
+export function getTeacherDashboardPreviewSections(sections) {
+  const previews = [];
+
+  sections.forEach((section, sectionIndex) => {
+    if (section.previewImage?.src) {
+      previews.push({
+        ...section.previewImage,
+        sectionIndex,
+        previewIndex: previews.length,
+      });
+    }
+
+    section.subsections?.forEach((subsection) => {
+      if (subsection.previewImage?.src) {
+        previews.push({
+          ...subsection.previewImage,
+          sectionIndex,
+          previewIndex: previews.length,
+        });
+      }
+    });
+  });
+
+  return previews;
+}

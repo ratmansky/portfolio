@@ -15,7 +15,7 @@ const introLinks = [
 ];
 
 const PREVIEW_WIDTH = 342;
-const PREVIEW_HEIGHT = 296;
+const PREVIEW_HEIGHT = Math.round((PREVIEW_WIDTH * 3) / 4);
 const PREVIEW_OFFSET = 16;
 
 function clamp(value, min, max) {
