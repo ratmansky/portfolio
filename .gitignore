@@ -21,3 +21,7 @@ npm-debug.log*
 
 # Editor
 .idea
+
+# Local-only content
+elli-case-context-draft.md
+src/local-content/*.js

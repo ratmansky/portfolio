@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from 'framer-motion';
 import { useLocation, useOutlet } from 'react-router-dom';
+import LocaleToggle from './LocaleToggle';
 import ThemeToggle from './ThemeToggle';
 
 const EASE = [0.22, 1, 0.36, 1];
@@ -38,6 +39,7 @@ export default function PageTransition() {
 
   return (
     <>
+      <LocaleToggle />
       <ThemeToggle />
       <LayoutGroup>
         <AnimatePresence mode="popLayout" initial={false}>

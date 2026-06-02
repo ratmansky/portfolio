@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import CaseStudyImage from '../components/CaseStudyImage';
 import {
   CaseStudyParagraphContent,
   getCaseStudyParagraphKey,
@@ -8,13 +9,30 @@ import ImageModal from '../components/ImageModal';
 import { defaultUiContent } from '../content/siteContent';
 import { useLocalizedContent } from '../content/locale';
 import {
-  redesignOfTeacherDashboard as baseContent,
-  getTeacherDashboardPreviewSections,
-} from '../projects/redesign-of-teacher-dashboard/content';
+  elli as baseContent,
+  getElliContextIllustration,
+  getElliContextSectionIndex,
+  getElliPreviewSections,
+} from '../projects/elli/content';
 
-function CaseStudyParagraphs({ paragraphs }) {
-  return paragraphs?.map((paragraph) => (
+function CaseStudyParagraphs({ paragraphs, inlinePreview, onOpenPreview }) {
+  return paragraphs?.map((paragraph, paragraphIndex) => (
     <p key={getCaseStudyParagraphKey(paragraph)} className="case-study-text">
+      {paragraphIndex === 0 && inlinePreview ? (
+        <button
+          className="case-study-inline-preview"
+          type="button"
+          aria-label="Open section illustration"
+          onClick={() => onOpenPreview(inlinePreview)}
+        >
+          <img
+            src={inlinePreview.src}
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        </button>
+      ) : null}
       <CaseStudyParagraphContent paragraph={paragraph} />
     </p>
   ));
@@ -42,7 +60,11 @@ function CaseStudyMobilePreview({ image, onOpenPreview }) {
   );
 }
 
-function CaseStudySubsection({ subsection, previewMarker, onOpenPreview }) {
+function CaseStudySubsection({
+  subsection,
+  previewMarker,
+  onOpenPreview,
+}) {
   return (
     <div
       className="case-study-subsection"
@@ -53,7 +75,11 @@ function CaseStudySubsection({ subsection, previewMarker, onOpenPreview }) {
         image={subsection.previewImage}
         onOpenPreview={onOpenPreview}
       />
-      <CaseStudyParagraphs paragraphs={subsection.paragraphs} />
+      <CaseStudyParagraphs
+        paragraphs={subsection.paragraphs}
+        inlinePreview={null}
+        onOpenPreview={onOpenPreview}
+      />
     </div>
   );
 }
@@ -76,7 +102,7 @@ function CaseStudySection({ section, metrics, previewMarkers, onOpenPreview }) {
 
   const isSubsection = section.type === 'subsection';
   const hasMedia = Boolean(section.image || section.imageGrid);
-  const mobilePreview = section.previewImage ?? null;
+  const mobilePreview = section.contextIllustration ?? section.previewImage ?? null;
 
   return (
     <div
@@ -106,6 +132,8 @@ function CaseStudySection({ section, metrics, previewMarkers, onOpenPreview }) {
           />
           <CaseStudyParagraphs
             paragraphs={section.paragraphs}
+            inlinePreview={null}
+            onOpenPreview={onOpenPreview}
           />
         </>
       )}
@@ -120,34 +148,74 @@ function CaseStudySection({ section, metrics, previewMarkers, onOpenPreview }) {
           ))}
         </ul>
       ) : null}
+
+      <CaseStudyImage image={section.image} wide />
+
+      {section.imageGrid ? (
+        <div className="case-study-grid">
+          {section.imageGrid.map((image) => (
+            <CaseStudyImage key={image.src} image={image} />
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }
 
-function CaseStudyScrollPreview({ previewSections, onActiveSectionIndexChange }) {
-  const [activePreview, setActivePreview] = useState(previewSections[0] ?? null);
+function CaseStudyScrollPreview({
+  sections,
+  previewSections,
+  activeSectionIndex,
+  contextSectionIndex,
+  backgroundImage,
+}) {
+  const [subsectionPreview, setSubsectionPreview] = useState(null);
   const [openPreview, setOpenPreview] = useState(null);
 
+  const activeSection = sections[activeSectionIndex];
+  const isContextSection = activeSectionIndex === contextSectionIndex;
+
+  const sectionForegroundPreview = !isContextSection && activeSection?.previewImage?.src
+    ? activeSection.previewImage
+    : null;
+
+  const foregroundPreview = sectionForegroundPreview ?? subsectionPreview;
+  const visiblePreview = foregroundPreview ?? backgroundImage;
+
   useEffect(() => {
+    if (backgroundImage?.src) {
+      const bg = new Image();
+      bg.src = backgroundImage.src;
+    }
+
     previewSections.forEach((preview) => {
       const image = new Image();
       image.src = preview.src;
     });
-  }, [previewSections]);
+  }, [backgroundImage, previewSections]);
 
   useEffect(() => {
-    if (!previewSections.length || typeof window === 'undefined') {
+    if (!activeSection?.subsections?.length || typeof window === 'undefined') {
+      setSubsectionPreview(null);
       return undefined;
     }
 
     let frame = 0;
     const initialTimers = [];
 
-    const updateActivePreview = () => {
+    const updateSubsectionPreview = () => {
       frame = 0;
 
+      const sectionRow = document.querySelector(
+        `[data-case-section-index="${activeSectionIndex}"]`,
+      );
+
+      if (!sectionRow) {
+        return;
+      }
+
       const marker = window.innerHeight * 0.42;
-      const previewBlocks = [...document.querySelectorAll('[data-case-preview-index]')];
+      const previewBlocks = [...sectionRow.querySelectorAll('[data-case-preview-index]')];
       const currentBlock = previewBlocks.reduce((current, block) => {
         const rect = block.getBoundingClientRect();
         const distance = Math.abs(rect.top - marker);
@@ -171,8 +239,7 @@ function CaseStudyScrollPreview({ previewSections, onActiveSectionIndexChange })
       const nextPreview = previewSections.find((preview) => preview.previewIndex === previewIndex);
 
       if (nextPreview) {
-        onActiveSectionIndexChange?.(nextPreview.sectionIndex);
-        setActivePreview((currentPreview) => (
+        setSubsectionPreview((currentPreview) => (
           currentPreview?.src === nextPreview.src ? currentPreview : nextPreview
         ));
       }
@@ -180,13 +247,13 @@ function CaseStudyScrollPreview({ previewSections, onActiveSectionIndexChange })
 
     const requestUpdate = () => {
       if (!frame) {
-        frame = window.requestAnimationFrame(updateActivePreview);
+        frame = window.requestAnimationFrame(updateSubsectionPreview);
       }
     };
 
-    updateActivePreview();
-    initialTimers.push(window.setTimeout(updateActivePreview, 120));
-    initialTimers.push(window.setTimeout(updateActivePreview, 480));
+    updateSubsectionPreview();
+    initialTimers.push(window.setTimeout(updateSubsectionPreview, 120));
+    initialTimers.push(window.setTimeout(updateSubsectionPreview, 480));
     window.addEventListener('scroll', requestUpdate, { passive: true });
     window.addEventListener('resize', requestUpdate);
     window.addEventListener('pageshow', requestUpdate);
@@ -201,9 +268,9 @@ function CaseStudyScrollPreview({ previewSections, onActiveSectionIndexChange })
       window.removeEventListener('resize', requestUpdate);
       window.removeEventListener('pageshow', requestUpdate);
     };
-  }, [onActiveSectionIndexChange, previewSections]);
+  }, [activeSection, activeSectionIndex, previewSections]);
 
-  if (!activePreview) {
+  if (!visiblePreview?.src) {
     return null;
   }
 
@@ -213,15 +280,27 @@ function CaseStudyScrollPreview({ previewSections, onActiveSectionIndexChange })
         className="case-study-scroll-preview-button"
         type="button"
         aria-label="Open image"
-        onClick={() => setOpenPreview(activePreview)}
+        onClick={() => setOpenPreview(foregroundPreview ?? backgroundImage)}
       >
-        <img
-          key={activePreview.src}
-          src={activePreview.src}
-          alt={activePreview.alt}
-          loading="eager"
-          decoding="async"
-        />
+        {backgroundImage?.src ? (
+          <img
+            className="case-study-scroll-preview-bg"
+            src={backgroundImage.src}
+            alt=""
+            loading="eager"
+            decoding="async"
+          />
+        ) : null}
+        {foregroundPreview?.src ? (
+          <img
+            key={foregroundPreview.src}
+            className="case-study-scroll-preview-fg"
+            src={foregroundPreview.src}
+            alt={foregroundPreview.alt}
+            loading="eager"
+            decoding="async"
+          />
+        ) : null}
       </button>
       {openPreview ? (
         <ImageModal image={openPreview} onClose={() => setOpenPreview(null)} />
@@ -230,16 +309,30 @@ function CaseStudyScrollPreview({ previewSections, onActiveSectionIndexChange })
   );
 }
 
-export default function RedesignOfTeacherDashboard() {
-  const content = useLocalizedContent('redesignOfTeacherDashboard', baseContent);
+export default function Elli() {
+  const content = useLocalizedContent('elli', baseContent);
   const ui = useLocalizedContent('ui', defaultUiContent);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const [openInlinePreview, setOpenInlinePreview] = useState(null);
 
-  const previewSections = useMemo(
-    () => getTeacherDashboardPreviewSections(content.sections),
+  const contextSectionIndex = useMemo(
+    () => getElliContextSectionIndex(content.sections),
     [content.sections],
   );
+
+  const contextIllustration = useMemo(
+    () => getElliContextIllustration(content.sections),
+    [content.sections],
+  );
+
+  const previewSections = useMemo(
+    () => getElliPreviewSections(content.sections),
+    [content.sections],
+  );
+
+  const scrollPreviewBackground = activeSectionIndex === contextSectionIndex
+    ? contextIllustration
+    : null;
 
   const sectionPreviewMarkers = useMemo(
     () => content.sections.map((section) => {
@@ -258,34 +351,94 @@ export default function RedesignOfTeacherDashboard() {
 
       return undefined;
     }),
-    [content.sections, previewSections],
+    [previewSections],
   );
 
   useEffect(() => {
     document.title = `${content.client} — ${content.title} | Vladimir Ratmansky`;
   }, [content.client, content.title]);
 
-  const sectionHasActivePreview = (section, index) => {
-    const marker = sectionPreviewMarkers[index];
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
 
-    if (marker === undefined) {
+    let frame = 0;
+
+    const updateActiveSection = () => {
+      frame = 0;
+
+      const marker = window.innerHeight * 0.42;
+      const sectionRows = [...document.querySelectorAll('[data-case-section-index]')];
+      const currentRow = sectionRows.reduce((current, row) => {
+        const rect = row.getBoundingClientRect();
+        const distance = Math.abs(rect.top - marker);
+
+        if (rect.top <= marker && rect.bottom >= 80) {
+          return { row, distance: 0 };
+        }
+
+        if (!current || distance < current.distance) {
+          return { row, distance };
+        }
+
+        return current;
+      }, null);
+
+      if (!currentRow) {
+        return;
+      }
+
+      const index = Number(currentRow.row.dataset.caseSectionIndex);
+      setActiveSectionIndex((current) => (current === index ? current : index));
+    };
+
+    const requestUpdate = () => {
+      if (!frame) {
+        frame = window.requestAnimationFrame(updateActiveSection);
+      }
+    };
+
+    updateActiveSection();
+    const initialTimer = window.setTimeout(updateActiveSection, 120);
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    window.addEventListener('pageshow', requestUpdate);
+
+    return () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+
+      window.clearTimeout(initialTimer);
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
+      window.removeEventListener('pageshow', requestUpdate);
+    };
+  }, []);
+
+  const sectionIsActive = (index) => activeSectionIndex === index;
+
+  const sectionHasActivePreview = (section, index) => {
+    if (!sectionIsActive(index)) {
       return false;
     }
 
-    if (Array.isArray(marker)) {
-      const activePreview = previewSections.find((item) => item.sectionIndex === index);
-      return Boolean(activePreview && activeSectionIndex === index);
+    if (section.previewImage?.src) {
+      return true;
     }
 
-    const activePreview = previewSections.find((item) => item.previewIndex === marker);
-    return activePreview?.sectionIndex === index && activeSectionIndex === index;
+    return Boolean(section.subsections?.some((subsection) => subsection.previewImage?.src));
   };
 
   return (
     <main className="page page--case-study">
       <CaseStudyScrollPreview
+        sections={content.sections}
         previewSections={previewSections}
-        onActiveSectionIndexChange={setActiveSectionIndex}
+        activeSectionIndex={activeSectionIndex}
+        contextSectionIndex={contextSectionIndex}
+        backgroundImage={scrollPreviewBackground}
       />
 
       <article className="case-study">
@@ -304,6 +457,28 @@ export default function RedesignOfTeacherDashboard() {
             {content.summary ? (
               <div className="case-study-summary" role="group" aria-label="Project overview">
                 <div className="case-study-summary-heading case-study-summary-heading--left">
+                  {content.summary.logo ? (
+                    <>
+                      <img
+                        src={content.summary.logo}
+                        alt=""
+                        className="case-study-summary-logo case-study-summary-logo--theme-dark"
+                        width={24}
+                        height={24}
+                        decoding="async"
+                      />
+                      {content.summary.logoLight ? (
+                        <img
+                          src={content.summary.logoLight}
+                          alt=""
+                          className="case-study-summary-logo case-study-summary-logo--theme-light"
+                          width={24}
+                          height={24}
+                          decoding="async"
+                        />
+                      ) : null}
+                    </>
+                  ) : null}
                   <span>{content.summary.heading}</span>
                 </div>
                 <p className="case-study-summary-heading case-study-summary-heading--right">
@@ -318,7 +493,7 @@ export default function RedesignOfTeacherDashboard() {
                   ))}
                 </div>
 
-                <aside className="case-study-summary-cell case-study-summary-cell--right" aria-label="Scope">
+                <aside className="case-study-summary-cell case-study-summary-cell--right" aria-label="Team">
                   <ul className="case-study-summary-team">
                     {content.summary.team.members.map((member) => (
                       <li
@@ -349,13 +524,14 @@ export default function RedesignOfTeacherDashboard() {
                 .filter(Boolean)
                 .join(' ')}
               key={section.heading || section.type}
+              data-case-section-index={index}
               data-case-preview-index={rowPreviewIndex}
             >
               <p className="portfolio-label" aria-hidden="true">
                 <span
                   className={[
-                    previewMarker !== undefined ? 'hover-link' : '',
-                    sectionHasActivePreview(section, index) ? 'hover-link--filled' : '',
+                    'hover-link',
+                    sectionIsActive(index) ? 'hover-link--filled' : '',
                   ]
                     .filter(Boolean)
                     .join(' ')}

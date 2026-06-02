@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { defaultUiContent } from '../content/siteContent';
+import { useLocalizedContent } from '../content/locale';
 
 const THEME_STORAGE_KEY = 'portfolio-theme';
 
@@ -16,6 +18,7 @@ function getInitialTheme() {
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState(getInitialTheme);
+  const ui = useLocalizedContent('ui', defaultUiContent);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -38,13 +41,15 @@ export default function ThemeToggle() {
       type="button"
       className="theme-toggle"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+      aria-label={isDark ? ui.switchToLightTheme : ui.switchToDarkTheme}
       aria-pressed={!isDark}
     >
       <span className="theme-toggle-track" aria-hidden="true">
         <span className="theme-toggle-thumb" />
       </span>
-      <span className="theme-toggle-label">{isDark ? 'Light' : 'Dark'}</span>
+      <span className="theme-toggle-label">
+        {isDark ? ui.themeLightLabel : ui.themeDarkLabel}
+      </span>
     </button>
   );
 }

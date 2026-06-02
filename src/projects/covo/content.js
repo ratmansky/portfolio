@@ -28,13 +28,13 @@ export const covo = {
     logoLight: `${covoAssets}/cov-logo-light.svg`,
     heading: "COVO | 2025-now",
     paragraphs: [
-      "COVO — корпоративная соцсеть и интранет-платформа, которая помогает сотрудникам оставаться на связи, делиться знаниями и быстро находить нужную информацию внутри компании.",
+      "COVO is a corporate social network and intranet platform that helps employees stay connected, share knowledge, and quickly find relevant information inside the company.",
     ],
     team: {
-      heading: "Команда",
+      heading: "Team",
       members: [
-        { text: "Product design: 1 (я)" },
-        { text: "2 разработчика" },
+        { text: "Product design: 1 (me)" },
+        { text: "2 developers" },
         { text: "Project management" },
       ],
     },
@@ -42,142 +42,144 @@ export const covo = {
   sections: [
     {
       type: "section",
-      heading: covoContextSectionHeading,
+      heading: "Context",
       contextIllustration: {
         src: `${covoAssets}/cov1.png`,
-        alt: "COVO — иллюстрация к разделу «Контекст»",
+        alt: "COVO context illustration",
       },
       paragraphs: [
-        "Когда я подключился к проекту, у команды уже были идея продукта, работающий бэкенд и первые экраны. На бумаге это выглядело как обычная дизайн-задача: привести интерфейс в порядок и дорисовать недостающие сценарии. На практике всё оказалось глубже: продукту нужна была не серия новых экранов, а способ быстро собирать и проверять интерфейс по мере роста.",
+        "When I joined the project, the team already had a product idea, a working backend, and the first screens. On paper it looked like a classic design task: clean up the interface and extend the missing flows.",
+        "In reality the problem was deeper. The product did not need a few more screens. It needed a way to assemble, test, and evolve the interface quickly as the scope grew.",
       ],
     },
     {
       type: "section",
-      heading: "Проблема",
+      heading: "Problem",
       previewImage: {
         src: `${covoAssets}/cov2.png`,
         alt: "Fragmented legacy interface system preview",
       },
       paragraphs: [
-        "До меня интерфейс собирался на раннем этапе проекта скорее как рабочий драфт: команде было важно быстро показать идею продукта, поэтому экраны появлялись ситуативно, без цельного визуального языка и дизайн-системы.",
-        "В результате продукт выглядел менее зрелым, чем его амбиция: визуальный стиль казался устаревшим, экранам не хватало акцентов и иерархии, а состояния и сценарии взаимодействия были скорее намечены, чем полноценно спроектированы.",
-        "Моей задачей стало не просто добавить новые экраны, а заново найти для COVO look and feel, выстроить визуальную систему и превратить ранний интерфейс в основу для масштабируемого MVP.",
+        "Before I joined, the interface had been assembled as an early working draft. The team needed to show the product idea quickly, so screens appeared situationally, without a cohesive visual language or design system.",
+        "As a result, the product felt less mature than its ambition. The style looked dated, screens lacked hierarchy and focus, and interaction states were only partially designed.",
+        "My task was not simply to add more screens. I had to redefine the look and feel of COVO, build a visual system, and turn an early interface into a scalable MVP foundation.",
       ],
     },
     {
       type: "section",
-      heading: "Как изменилась задача",
+      heading: "How the task changed",
       paragraphs: [
-        "Изначально заказчик пришёл с запросом собрать дизайн-систему на основе уже существующих экранов. Но после первого погружения стало понятно, что систематизировать текущий интерфейс недостаточно: продукту нужен был новый визуальный язык, более современный, дружелюбный и тактильный.",
-        "Так задача сместилась от оформления дизайн-системы к пересборке интерфейса как основы MVP. Я начал заново искать look and feel COVO, продумывать паттерны и состояния, а параллельно работать ближе к коду, чтобы быстрее проверять решения в живом продукте.",
-        "Этот подход изменил мою роль в проекте: я не только рисовал экраны в Figma, но и собирал рабочие компоненты, помогал доводить их до фронтенда и вместе с разработчиком ускорял путь от идеи до интерфейса.",
+        "The original request was to build a design system on top of the existing screens. But after the first deep dive it became clear that systematizing the current UI would not be enough.",
+        "The product needed a new visual language: more modern, more tactile, and more approachable. So the task shifted from styling a design system to rebuilding the interface as the basis for the MVP.",
+        "That changed my role in the project. I was not only designing screens in Figma, but also assembling working components, validating them closer to code, and accelerating the path from idea to interface together with the developer.",
       ],
     },
     {
       type: "section",
-      heading: "Решение: Progressive Render",
+      heading: "Solution: Progressive Render",
       previewImage: {
         src: covoPlaceholderImage,
         alt: "Screens are getting dressed placeholder",
       },
       paragraphs: [
-        "Я выстроил для COVO процесс, который назвал Progressive Render. Его суть была простой: сначала быстро собрать рабочую форму, потом проверить её в браузере и только после этого доводить до уровня системы.",
-        "Вместо длинного цикла «Figma → разработка → правки → снова Figma» мы работали короткими итерациями. Я проектировал компонент или сценарий в Figma, AI помогал быстро собрать первый кодовый слой, дальше я дорабатывал интерфейс в React, проверял его в живой среде и возвращал финальную версию обратно в Figma через Codex. Такой ритм позволял принимать решения на основании работающего интерфейса, а не предположений в макете.",
+        "For COVO I built a process I called Progressive Render. The idea was simple: assemble a working form quickly, test it in the browser, and only then polish it into a reusable system.",
+        "Instead of a long “Figma -> development -> feedback -> back to Figma” cycle, we worked in short iterations. I designed a component or flow in Figma, used AI to generate the first code layer, refined the UI in React, checked it in a live environment, and then synced the result back into Figma through Codex.",
+        "That rhythm let us make decisions based on a working interface rather than on assumptions inside a mockup.",
       ],
     },
     {
       type: "section",
-      heading: "Решения",
+      heading: "Design decisions",
       subsections: [
         {
-          heading: "Сблизили дизайн и фронтенд в одном репозитории",
+          heading: "Brought design and frontend into one repository",
           paragraphs: [
-            "Один репозиторий с разработчиком стал для меня не технической деталью, а новой моделью работы. Я мог не только рисовать решение, но и сразу проверять, как оно собирается в коде, где ломается и как ведёт себя в реальных состояниях.",
-            "Это убрало часть перевода между дизайном и разработкой: вместо обсуждения «как должно выглядеть» мы быстрее переходили к вопросу «как это должно работать».",
+            "Sharing one repository with the developer became more than a technical detail. It changed the way I worked. I could not only design a solution, but also immediately see how it assembled in code, where it broke, and how it behaved in real states.",
+            "That removed a big part of the translation gap between design and engineering. Instead of discussing how something should look, we could move much faster to how it should actually work.",
           ],
         },
         {
-          heading: "Перенесли проверку гипотез в React-лабораторию",
+          heading: "Moved hypothesis testing into a React lab",
           previewImage: {
             src: covoPlaceholderImage,
             alt: "Screens are getting dressed placeholder",
           },
           paragraphs: [
-            "Чтобы не ждать основной продуктовый цикл, я развернул отдельную React-лабораторию в Cursor. Это была среда для быстрых UI-проверок, где можно было собрать сценарий, показать его заказчику и сразу увидеть, насколько решение работает в реальном контексте.",
-            "Лаборатория позволяла двигаться параллельно с основной разработкой и не тормозить из-за зависимостей по бэкенду или релизам.",
+            "To avoid waiting for the main product cycle, I set up a separate React lab in Cursor. It became a fast environment for UI validation, where I could assemble a scenario, show it to the client, and immediately see whether the solution worked in context.",
+            "This allowed us to move in parallel with core development and avoid being blocked by backend dependencies or release timing.",
           ],
         },
         {
-          heading: "Разработали собственные инструменты на базе MeasureMate",
+          heading: "Built custom tools on top of MeasureMate",
           previewImage: {
             src: covoPlaceholderImage,
             alt: "Screens are getting dressed placeholder",
           },
           paragraphs: [
             [
-              "Во время работы над COVO я начал развивать ",
+              "While working on COVO, I started extending ",
               {
                 type: "link",
                 label: "MeasureMate",
                 href: "https://mezuremate.xyz/",
                 icon: measureMateFavicon,
               },
-              " как browser-based набор инструментов для точных UI-итераций поверх живого интерфейса. Поверх продукта появился кастомный инспектор с гридами, layout-оверлеями и слоем для работы с отрендеренным DOM.",
+              " into a browser-based toolset for precise UI iteration on top of a live interface. It gave us a custom inspector with grids, layout overlays, and a layer for working with the rendered DOM.",
             ],
-            "Он помогал не просто смотреть на страницу, а быстро понимать, из каких контейнеров и блоков собран интерфейс, где находится нужный элемент и что именно нужно менять.",
+            "It helped us do more than just look at the page. We could quickly understand which blocks and containers shaped the layout, where the target element lived, and what exactly needed to change.",
           ],
         },
         {
-          heading: "Построили AI-флоу для точечных изменений в браузере",
+          heading: "Created an AI flow for precise in-browser edits",
           paragraphs: [
-            "Ключевой частью этого подхода стал Prompt Targeting Layer. Он позволял выделить нужный фрейм прямо в браузере, подхватить названия контейнеров, div-структуру и контекст вокруг элемента, а затем автоматически собрать промт для AI-агента.",
-            "В результате AI получал не абстрактную просьбу вроде «поправь карточку», а точную задачу с уже собранным интерфейсным контекстом. Это заметно ускоряло работу: вместо длинного ручного описания изменения мы сразу переходили к точной постановке задачи для Codex, Cursor или другого AI-инструмента.",
+            "A key part of this approach was the Prompt Targeting Layer. It let me select the exact frame in the browser, capture container names, DOM structure, and nearby interface context, and automatically assemble a task for an AI agent.",
+            "That meant the AI received a precise request instead of a vague prompt like “fix this card.” It sped up the workflow dramatically: instead of writing a long manual explanation, we could move straight to a sharply scoped task for Codex, Cursor, or another AI tool.",
           ],
         },
         {
-          heading: "Собрали собственную витрину компонентов",
+          heading: "Built a lightweight component showcase",
           previewImage: {
             src: covoPlaceholderImage,
             alt: "Screens are getting dressed placeholder",
           },
           paragraphs: [
-            "Чтобы система жила не только в Figma и отдельных экранах, я собрал свою облегчённую библиотеку компонентов с витриной состояний. Туда попадали ключевые паттерны интерфейса, варианты, крайние случаи и нужные состояния.",
-            "Это позволяло быстро проверять, выдерживает ли компонент реальные сценарии использования, без тяжёлого отдельного слоя инфраструктуры. Такая витрина стала мостом между дизайном и разработкой и помогала обсуждать не пиксели, а поведение, ограничения и масштабируемость паттернов.",
+            "To keep the system alive outside Figma and isolated screens, I built a lightweight component library with a state showcase. It captured key interface patterns, variants, edge cases, and important states.",
+            "This made it easy to test whether a component could survive real usage scenarios without setting up heavyweight infrastructure. The showcase became a bridge between design and engineering and shifted conversations from pixels to behavior, constraints, and scalability.",
           ],
         },
       ],
     },
     {
       type: "section",
-      heading: "Результат",
+      heading: "Outcome",
       previewImage: {
         src: covoPlaceholderImage,
         alt: "Screens are getting dressed placeholder",
       },
       paragraphs: [
-        "Вместо набора отдельных экранов команда получила более устойчивую систему производства интерфейса, в которой новые сценарии стало проще собирать, проверять и доводить до рабочего состояния без постоянного ручного пересоздания.",
-        "Так внутри COVO появились и уточнились продуктовые паттерны: закладки для постов, фильтрация по тегам, состояния для разных типов контента и общая логика связей между лентой, сообществами, профилями и событиями. Но главный результат был шире отдельных фич: мы построили рабочую AI-driven среду, в которой дизайнер участвует не только в визуальной части, но и в сборке интерфейса на уровне фронтенд-логики, поведения и контекста изменения.",
-        "Через полтора месяца после старта мы развернули проект в тестовой компании друзей и провели 10 интервью с пользователями и HR-специалистами. Это помогло быстро увидеть ряд ошибок в логике и приоритетах, и мы не спрятали их в backlog, а сразу пустили в дальнейшую работу над продуктом.",
+        "Instead of a collection of disconnected screens, the team gained a more resilient interface production system. New scenarios became easier to assemble, test, and refine without constant manual recreation.",
+        "Inside COVO this led to clearer product patterns: bookmarks for posts, tag-based filtering, states for different content types, and a more coherent relationship between feed, communities, profiles, and events. But the bigger outcome was broader than individual features: we built a working AI-driven environment where the designer contributes not only to visuals, but also to frontend logic, behavior, and implementation context.",
+        "About six weeks after kickoff, we deployed the product to a friendly pilot company and ran 10 interviews with users and HR specialists. That helped us quickly spot weak logic and wrong priorities, and feed those insights back into the product immediately instead of burying them in a backlog.",
       ],
     },
     {
       type: "section",
-      heading: "Выводы",
+      heading: "Learnings",
       paragraphs: [
-        "COVO стал для меня кейсом не только про продуктовый дизайн, но и про новую роль дизайнера в AI-first процессе. Когда дизайнер работает в одном репозитории с разработчиком, проверяет гипотезы в живом интерфейсе и использует собственные инструменты для точной работы с AI-агентами, меняется сам темп принятия решений.",
-        "Цикл «идея → интерфейс → проверка → правка» сжимается с дней до минут, и в этот момент дизайн перестаёт быть подготовительным этапом, а становится способом быстрее находить рабочую форму продукта.",
-        "Сейчас работа над COVO продолжается, а следующий шаг — попробовать этот подход в образовательной сфере в Германии, начиная с интеграционных курсов, где у команды уже есть доступ к организациям и возможность проверить продукт в новом контексте.",
+        "COVO became a case not only about product design, but also about a new role for the designer inside an AI-first process. When a designer shares the repository with engineering, validates ideas in a live interface, and uses custom tools to collaborate with AI agents, the speed of decision-making changes completely.",
+        "The cycle of idea -> interface -> validation -> correction shrinks from days to minutes. At that point design stops being a preparatory phase and becomes a way to find the working form of the product faster.",
+        "The work on COVO is still ongoing, and the next step is to test this approach in educational products in Germany, starting with integration-course contexts where the team already has access to partner organizations and a path to real validation.",
       ],
     },
   ],
 };
 
 export function getCovoContextSectionIndex(sections) {
-  return sections.findIndex((section) => section.heading === covoContextSectionHeading);
+  return sections.findIndex((section) => section.contextIllustration);
 }
 
 export function getCovoContextIllustration(sections) {
-  const contextSection = sections.find((section) => section.heading === covoContextSectionHeading);
+  const contextSection = sections.find((section) => section.contextIllustration);
   return contextSection?.contextIllustration ?? null;
 }
 

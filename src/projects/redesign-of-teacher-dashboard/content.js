@@ -1,4 +1,5 @@
-const imageBase = '/assets/projects/redesign-of-teacher-dashboard';
+const placeholderImage = '/elli/cov-screens-getting-dressed.png';
+const placeholderAlt = 'Project placeholder image';
 
 export const redesignOfTeacherDashboard = {
   id: 'redesign-of-teacher-dashboard',
@@ -32,8 +33,8 @@ export const redesignOfTeacherDashboard = {
       type: 'section',
       heading: 'Teachers as the Key Growth Driver',
       previewImage: {
-        src: `${imageBase}/01-flow-from-classroom-to-purchase.png`,
-        alt: 'Class structure and teacher collaboration context',
+        src: placeholderImage,
+        alt: placeholderAlt,
       },
       paragraphs: [
         'The structure of the Russian school system directly shapes how the product is used. In primary school, a single teacher usually teaches all subjects to one class. In middle and high school (grades 5–11), the model changes: each subject is taught by a different teacher, and one class is shared by multiple educators.',
@@ -45,12 +46,12 @@ export const redesignOfTeacherDashboard = {
       type: 'section',
       heading: 'From classroom to purchase',
       previewImage: {
-        src: `${imageBase}/01-flow-from-classroom-to-purchase.png`,
-        alt: 'Flow from teacher class work to parent premium purchase',
+        src: placeholderImage,
+        alt: placeholderAlt,
       },
       image: {
-        src: `${imageBase}/01-flow-from-classroom-to-purchase.png`,
-        alt: 'Flow diagram: primary school path from teacher to parent purchase vs broken secondary school path with duplicate classes',
+        src: placeholderImage,
+        alt: placeholderAlt,
       },
       paragraphs: [
         'This chart shows the path from a teacher’s work with a class to a premium access purchase and how revenue is created—or lost—along the way. In primary school, the flow remains intact: a single class, unified student progress, and a clear purchase decision for parents. In middle and high school, the same path breaks due to class duplication—progress becomes fragmented, value unclear, and a significant portion of potential revenue is lost before the purchase stage.',
@@ -61,12 +62,12 @@ export const redesignOfTeacherDashboard = {
       type: 'section',
       heading: 'The existing dashboard',
       previewImage: {
-        src: `${imageBase}/02-old-teacher-dashboard.png`,
-        alt: 'Previous teacher dashboard interface',
+        src: placeholderImage,
+        alt: placeholderAlt,
       },
       image: {
-        src: `${imageBase}/02-old-teacher-dashboard.png`,
-        alt: 'Previous teacher dashboard interface',
+        src: placeholderImage,
+        alt: placeholderAlt,
       },
       paragraphs: [
         'After the first three interviews with teachers, it became clear that the issues were not isolated but systemic. Regardless of subject, experience level, or number of classes, teachers encountered the same problems when working with the class list and collaborating with other educators. This allowed us to quickly identify the key UX bottlenecks and focus on them moving forward.',
@@ -76,8 +77,8 @@ export const redesignOfTeacherDashboard = {
       type: 'section',
       heading: 'Key UX Problems (Before)',
       previewImage: {
-        src: `${imageBase}/04-ux-problems.png`,
-        alt: 'Annotated UX problems in the old class list',
+        src: placeholderImage,
+        alt: placeholderAlt,
       },
       list: [
         {
@@ -98,16 +99,16 @@ export const redesignOfTeacherDashboard = {
         },
       ],
       image: {
-        src: `${imageBase}/04-ux-problems.png`,
-        alt: 'Annotated UX problems in the old class list',
+        src: placeholderImage,
+        alt: placeholderAlt,
       },
     },
     {
       type: 'section',
       heading: 'Design-led exploration',
       previewImage: {
-        src: `${imageBase}/03-teacher-dashboard-context.png`,
-        alt: 'Research and exploration context screens',
+        src: placeholderImage,
+        alt: placeholderAlt,
       },
       paragraphs: [
         'I didn’t start with classical research. The problem was systemic and already visible in the product, but teachers found it hard to articulate it verbally. Instead, I used design as a research tool: quickly prototyping key scenarios and validating them through interviews with teachers.',
@@ -118,30 +119,30 @@ export const redesignOfTeacherDashboard = {
         'When I started prototyping new scenarios, it became clear that it was impossible to assemble them properly using the old components. As a result, I began systematically updating the design system in parallel with the project: aligning core components, unifying states and interaction rules, and iteratively rolling out a more cohesive visual language. This provided a stable foundation for new screens and made future scaling much easier.',
       ],
       image: {
-        src: `${imageBase}/03-teacher-dashboard-context.png`,
-        alt: 'Research and exploration context screens',
+        src: placeholderImage,
+        alt: placeholderAlt,
       },
       subsections: [
         {
           heading: 'First iterations',
           previewImage: {
-            src: `${imageBase}/05-first-iterations.png`,
-            alt: 'Early interface iterations for shared class and teacher collaboration',
+            src: placeholderImage,
+            alt: placeholderAlt,
           },
           image: {
-            src: `${imageBase}/05-first-iterations.png`,
-            alt: 'Early interface iterations for shared class and teacher collaboration',
+            src: placeholderImage,
+            alt: placeholderAlt,
           },
         },
         {
           heading: 'Design system',
           previewImage: {
-            src: `${imageBase}/06-design-system.png`,
-            alt: 'Updated design system components and states',
+            src: placeholderImage,
+            alt: placeholderAlt,
           },
           image: {
-            src: `${imageBase}/06-design-system.png`,
-            alt: 'Updated design system components and states',
+            src: placeholderImage,
+            alt: placeholderAlt,
           },
         },
       ],
@@ -150,8 +151,8 @@ export const redesignOfTeacherDashboard = {
       type: 'section',
       heading: 'Result of work',
       previewImage: {
-        src: `${imageBase}/07-result-shared-class.png`,
-        alt: 'New shared class workspace',
+        src: placeholderImage,
+        alt: placeholderAlt,
       },
       paragraphs: [
         'When designing the new interface, I intentionally accounted for the age profile of teachers. In Russian schools, a significant number of educators are over 55–60 years old, which directly impacts interface requirements. It was important to make the experience clear, predictable, and visually calm.',
@@ -162,20 +163,20 @@ export const redesignOfTeacherDashboard = {
       ],
       imageGrid: [
         {
-          src: `${imageBase}/07-result-shared-class.png`,
-          alt: 'New shared class workspace',
+          src: placeholderImage,
+          alt: placeholderAlt,
         },
         {
-          src: `${imageBase}/08-result-invitations.png`,
-          alt: 'Redesigned teacher invitation flow',
+          src: placeholderImage,
+          alt: placeholderAlt,
         },
         {
-          src: `${imageBase}/09-result-class-list.png`,
-          alt: 'Class list with clear hierarchy',
+          src: placeholderImage,
+          alt: placeholderAlt,
         },
         {
-          src: `${imageBase}/10-result-accessibility.png`,
-          alt: 'Accessible interface patterns for older teachers',
+          src: placeholderImage,
+          alt: placeholderAlt,
         },
       ],
     },

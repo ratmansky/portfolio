@@ -4,6 +4,8 @@ import LinkRow from '../components/LinkRow';
 import ProjectItem from '../components/ProjectItem';
 import ProjectPreview from '../components/ProjectPreview';
 import { projects } from '../data/projects';
+import { defaultHomeContent, defaultUiContent } from '../content/siteContent';
+import { useLocalizedContent } from '../content/locale';
 
 const introLinks = [
   { label: 'e-mail', href: 'mailto:hello@vladimirratmansky.com' },
@@ -47,6 +49,9 @@ function getPreviewPoint(point) {
 }
 
 export default function Home() {
+  const homeContent = useLocalizedContent('home', defaultHomeContent);
+  const ui = useLocalizedContent('ui', defaultUiContent);
+  const localizedProjects = useLocalizedContent('projects', projects);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewColor, setPreviewColor] = useState('#ffffff');
   const [previewImage, setPreviewImage] = useState(null);
@@ -54,7 +59,7 @@ export default function Home() {
   const [previewPoint, setPreviewPoint] = useState(null);
 
   useEffect(() => {
-    projects.forEach((project) => {
+    localizedProjects.forEach((project) => {
       if (!project.previewImage) {
         return;
       }
@@ -62,7 +67,7 @@ export default function Home() {
       const img = new Image();
       img.src = project.previewImage;
     });
-  }, []);
+  }, [localizedProjects]);
 
   const showPreview = (project, point = null) => {
     setPreviewColor(project.previewColor);
@@ -93,7 +98,7 @@ export default function Home() {
         point={previewPoint}
       />
 
-      <section className="portfolio-layout" aria-label="Portfolio overview">
+      <section className="portfolio-layout" aria-label={ui.portfolioOverviewAria}>
         <div className="portfolio-row portfolio-row--intro">
           <div className="portfolio-intro-header">
             <div className="portfolio-portrait-wrap">
@@ -107,28 +112,24 @@ export default function Home() {
               />
               <span className="portfolio-portrait-tint" aria-hidden="true" />
             </div>
-            <p className="portfolio-label">Vladimir Ratmansky</p>
+            <p className="portfolio-label">{homeContent.nameLabel}</p>
           </div>
 
           <div className="portfolio-content">
-            <p className="portfolio-copy">
-              Hi! Over the past 8 years, I&apos;ve worked on learning platforms, teacher
-              tools, and B2C products used by millions of people - helping teams simplify
-              workflows, improve engagement, and build products people can actually use.
-            </p>
+            <p className="portfolio-copy">{homeContent.intro}</p>
             <LinkRow links={introLinks} />
           </div>
         </div>
 
         <div className="portfolio-row">
-          <p className="portfolio-label">Projects</p>
+          <p className="portfolio-label">{ui.projectsLabel}</p>
 
           <div
             className="portfolio-content portfolio-projects"
             onMouseLeave={hidePreview}
             onFocusOut={handleProjectsFocusOut}
           >
-            {projects.map((project) => (
+            {localizedProjects.map((project) => (
               <ProjectItem
                 key={project.id}
                 project={project}

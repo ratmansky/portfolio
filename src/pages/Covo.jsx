@@ -6,8 +6,10 @@ import {
 } from '../components/CaseStudyInlineLink';
 import HoverLink from '../components/HoverLink';
 import ImageModal from '../components/ImageModal';
+import { defaultUiContent } from '../content/siteContent';
+import { useLocalizedContent } from '../content/locale';
 import {
-  covo as content,
+  covo as baseContent,
   getCovoContextIllustration,
   getCovoContextSectionIndex,
   getCovoPreviewSections,
@@ -308,22 +310,24 @@ function CaseStudyScrollPreview({
 }
 
 export default function Covo() {
+  const content = useLocalizedContent('covo', baseContent);
+  const ui = useLocalizedContent('ui', defaultUiContent);
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const [openInlinePreview, setOpenInlinePreview] = useState(null);
 
   const contextSectionIndex = useMemo(
     () => getCovoContextSectionIndex(content.sections),
-    [],
+    [content.sections],
   );
 
   const contextIllustration = useMemo(
     () => getCovoContextIllustration(content.sections),
-    [],
+    [content.sections],
   );
 
   const previewSections = useMemo(
     () => getCovoPreviewSections(content.sections),
-    [],
+    [content.sections],
   );
 
   const scrollPreviewBackground = activeSectionIndex === contextSectionIndex
@@ -333,13 +337,14 @@ export default function Covo() {
   const sectionPreviewMarkers = useMemo(
     () => content.sections.map((section) => {
       if (section.previewImage?.src) {
-        return previewSections.find((item) => item.src === section.previewImage.src)?.previewIndex;
+        return previewSections.find((item) => item.sectionIndex === content.sections.indexOf(section))?.previewIndex;
       }
 
       if (section.subsections?.length) {
-        return section.subsections.map((subsection) => (
+        return section.subsections.map((subsection, subsectionIndex) => (
           subsection.previewImage?.src
-            ? previewSections.find((item) => item.src === subsection.previewImage.src)?.previewIndex
+            ? previewSections
+              .filter((item) => item.sectionIndex === content.sections.indexOf(section))[subsectionIndex]?.previewIndex
             : undefined
         ));
       }
@@ -351,7 +356,7 @@ export default function Covo() {
 
   useEffect(() => {
     document.title = `${content.client} — ${content.title} | Vladimir Ratmansky`;
-  }, []);
+  }, [content.client, content.title]);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -439,7 +444,7 @@ export default function Covo() {
       <article className="case-study">
         <header className="case-study-header portfolio-row">
           <p className="portfolio-label">
-            <HoverLink to="/">← Projects</HoverLink>
+            <HoverLink to={`/`}>{`← ${ui.backToProjects}`}</HoverLink>
           </p>
 
           <div className="portfolio-content case-study-header-content">
